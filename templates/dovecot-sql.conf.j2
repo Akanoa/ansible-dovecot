@@ -2,8 +2,6 @@ driver=mysql
 connect = "host={{ dovecot_sql_host }} dbname={{ dovecot_sql_db }} user={{ dovecot_sql_user }} password={{ dovecot_sql_user_password }}"
 default_pass_scheme = SHA512-CRYPT
 
-password_query = SELECT username AS user, domain, password FROM accounts WHERE username = '%n' AND domain = '%d' and enabled = true;
+password_query = SELECT username AS user,password FROM mailbox WHERE username = '%u' AND active='1'
 
-user_query = SELECT concat('*:storage=', quota, 'M') AS quota_rule FROM accounts WHERE username = '%n' AND domain = '%d' AND sendonly = false;
-
-iterate_query = SELECT username, domain FROM accounts where sendonly = false;
+SELECT CONCAT('/var/mail/vmail/', maildir) AS home, 1001 AS uid, 1001 AS gid, CONCAT('*:bytes=', quota) AS quota_rule FROM mailbox WHERE username = '%u' AND active='1'
