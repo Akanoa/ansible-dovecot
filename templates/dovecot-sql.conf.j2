@@ -4,4 +4,4 @@ default_pass_scheme = SHA512-CRYPT
 
 password_query = SELECT username AS user,password FROM mailbox WHERE username = '%u' AND active='1'
 
-SELECT CONCAT('/var/mail/vmail/', maildir) AS home, 1001 AS uid, 1001 AS gid, CONCAT('*:bytes=', quota) AS quota_rule FROM mailbox WHERE username = '%u' AND active='1'
+user_query = SELECT CONCAT('/var/mail/vmail/', maildir) AS home, 1001 AS uid, 1001 AS gid, CONCAT('*:bytes=', quota) AS quota_rule FROM mailbox WHERE username = '%u' AND active='1'
